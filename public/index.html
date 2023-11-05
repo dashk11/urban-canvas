@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Welcome</title>
+
+    <!-- update the version number as needed -->
+    <script defer src="/__/firebase/10.5.2/firebase-app-compat.js"></script>
+    <!-- include only the Firebase features as you need -->
+    <script defer src="/__/firebase/10.5.2/firebase-auth-compat.js"></script>
+    <script defer src="/__/firebase/10.5.2/firebase-database-compat.js"></script>
+    <script defer src="/__/firebase/10.5.2/firebase-firestore-compat.js"></script>
+    <script defer src="/__/firebase/10.5.2/firebase-functions-compat.js"></script>
+    <script defer src="/__/firebase/10.5.2/firebase-messaging-compat.js"></script>
+    <script defer src="/__/firebase/10.5.2/firebase-storage-compat.js"></script>
+    <script defer src="/__/firebase/10.5.2/firebase-analytics-compat.js"></script>
+    <script defer src="/__/firebase/10.5.2/firebase-remote-config-compat.js"></script>
+    <script defer src="/__/firebase/10.5.2/firebase-performance-compat.js"></script>
+    <!-- 
+      initialize the SDK after all desired features are loaded, set useEmulator to false
+      to avoid connecting the SDK to running emulators.
+    -->
+    <script defer src="/__/firebase/init.js?useEmulator=true"></script>
+    <script src="https://cesium.com/downloads/cesiumjs/releases/1.111/Build/Cesium/Cesium.js"></script>
+
+    <link href="https://cesium.com/downloads/cesiumjs/releases/1.111/Build/Cesium/Widgets/widgets.css" rel="stylesheet">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+
+
+
+    <style media="screen">
+      body { background: #ECEFF1; color: rgba(0,0,0,0.87); font-family: Roboto, Helvetica, Arial, sans-serif; margin: 0; padding: 0; }
+      #message { background: white; max-width: 360px; margin: 100px auto 16px; padding: 32px 24px; border-radius: 3px; }
+      #message h2 { color: #ffa100; font-weight: bold; font-size: 16px; margin: 0 0 8px; }
+      #message h1 { font-size: 22px; font-weight: 300; color: rgba(0,0,0,0.6); margin: 0 0 16px;}
+      #message p { line-height: 140%; margin: 16px 0 24px; font-size: 14px; }
+      #message a { display: block; text-align: center; background: #039be5; text-transform: uppercase; text-decoration: none; color: white; padding: 16px; border-radius: 4px; }
+      #message, #message a { box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24); }
+      #load { color: rgba(0,0,0,0.4); text-align: center; font-size: 13px; }
+      @media (max-width: 600px) {
+        body, #message { margin-top: 0; background: white; box-shadow: none; }
+        body { border-top: 16px solid #ffa100; }
+      }
+    </style>
+    <link rel="stylesheet" href="./style.css">
+    <script type="module">
+      // Import the functions you need from the SDKs you need
+      // import { initializeApp } from "https://www.gstatic.com/firebasejs/10.5.2/firebase-app.js";
+      // import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
+      // TODO: Add SDKs for Firebase products that you want to use
+      // https://firebase.google.com/docs/web/setup#available-libraries
+    
+      // import { getAuth } from "firebase/auth";
+      // Your web app's Firebase configuration
+      const firebaseConfig = {
+        apiKey: "AIzaSyDIgf3QsO0MoyZwyN7q5KCRJz5Qj1Hv6bw",
+        authDomain: "onyx-course-404102.firebaseapp.com",
+        projectId: "onyx-course-404102",
+        storageBucket: "onyx-course-404102.appspot.com",
+        messagingSenderId: "246359235865",
+        appId: "1:246359235865:web:187e810314bb7151483988"
+      };
+    
+      // Initialize Firebase
+      var app = null
+      if (firebase.apps.length === 0) {
+        app = firebase.initializeApp(firebaseConfig);
+      } else {
+        app = firebase.apps[0]
+      }
+      const auth = firebase.auth(app);
+
+      firebase.auth().onAuthStateChanged((user) => {
+         if (user) {
+            // User is signed in, see docs for a list of available properties
+            // https://firebase.google.com/docs/reference/js/v8/firebase.User
+            var uid = user.uid;
+            console.log(uid)
+            // ...
+         } else {
+            // User is signed out
+            // ...
+            location.href='./login.html'
+         }
+      });
+
+      // console.log(auth)
+</script>   
+<script>
+  function logout() {
+        firebase.auth().signOut().then(() => {
+          console.log('Signed out')
+         }).catch((er) => {
+          console.log('error logging out')
+         })
+      }
+</script>
+  </head>
+  <body>
+      <nav>
+        <div class="hamburger-menu" onclick="toggleSidebar()">
+          <div class="bar"></div>
+          <div class="bar"></div>
+          <div class="bar"></div>
+        </div>
+        <div class="links">
+          <!-- <a href="#">Link 1</a>
+              <a href="#">Link 2</a>
+              <a href="#">Link 3</a> -->
+          
+          <div class="sun-emo">☀️</div>
+          <a href="#" onclick="logout();"><img src="https://www.svgrepo.com/show/135250/logout.svg" alt=""
+              class="logout-btn"></a>
+        </div>
+        </nav>
+        <!-- Hamburger Icon -->
+
+        <!-- cesium -->
+        <div id="cesiumContainer"></div>
+        <div id="tool-tip">
+          <div class="vote-container">
+            <div class="vote-wrapper">
+              <div class="up-arrow" onclick="vote(1)">➡</div>
+              <div class="vote-count">0</div>
+              <div class="down-arrow" onclick="vote(-1)">➡</div>
+            </div>
+            
+          </div>
+          <div class="actual-content">
+            <center>
+              <div class="building-title"> Select Project.. </div>
+            </center>
+        
+            <div class="row">
+              <div>🔥 Carbon Footprint (kg CO2e/year) </div>
+              <div id="carbon"> -</div>
+            </div class="row">
+            <div class="row">
+              <div>⚡ Energy Consumption (KWH/sqft)</div>
+              <div id="energy"> -</div>
+            </div>
+            <div class="row">
+              <div>❄️ AQI</div>
+              <div id="aqi"> -</div>
+            </div>
+
+            <div class="row">
+              <div>🌳 Eco rating </div>
+              <div class="progress-bar">
+                <div class="progress" id="rating">
+                </div>
+              </div>
+            </div>
+        
+        
+          </div>
+        </div>
+      
+      
+        <!-- Sidebar -->
+        <div id="sidebar" class="sidebar">
+          <a href="/">Eco Rating</a>
+          <a href="/solar.html">Solar Potential </a>
+          <a href="#contact">Guidelines</a>
+        </div>
+     
+        
+
+
+
+    <script>
+      const data = {
+          'Health Service Building': { carbon: 139, energy: 20, rating: 90, votes: 10 },
+          'West 6 Apartments': { carbon: 540, energy: 43, rating: 10, votes: -13 },
+          'Novus Parking Structure': { carbon: 320, energy: 32, rating: 30, votes: 10 },
+          'Verde Dickey Dome': { carbon: 400, energy: 38, rating: 20, votes: -5 },
+          'University Center A': { carbon: 178, energy: 26, rating: 59, votes: 10 },
+          'University Center C': { carbon: 110, energy: 19, rating: 90, votes: 100 },
+        }
+
+
+        let selectedBuilding = null;
+      let vote = (count) => {
+          let voteCount = document.getElementsByClassName("vote-count")[0]
+          // let key = document.getElementsByClassName("building-title")[0].innerHTML
+          data[selectedBuilding].votes += count;
+          voteCount.innerHTML = data[selectedBuilding].votes;
+        }
+      
+      </script>
+        
+        <script type="module">
+          Cesium.Ion.defaultAccessToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiJhYjgxMDFjNi0yM2E3LTRlNzItYjhmNy0yYjRjOWFkMjMzNjAiLCJpZCI6MTc2MDI0LCJpYXQiOjE2OTkxMjQwNzd9.z4z2JZkIgFQVHr3LAPaZHza9F_jyj9Wc0o0zk8a9AF8';
+          // Cesium World Terrain.
+          const viewer = new Cesium.Viewer('cesiumContainer', {
+            terrain: Cesium.Terrain.fromWorldTerrain(),
+          });
+
+          // // Add Cesium OSM Buildings.
+          const buildingsTileset = await Cesium.createOsmBuildingsAsync();
+          viewer.scene.primitives.add(buildingsTileset);
+
+          // Setup style
+          setBuildingStyle();
+
+          // Add the 3D Tileset.
+          const newBuildingTileset = await Cesium.Cesium3DTileset.fromIonAssetId(2341188);
+          viewer.scene.primitives.add(newBuildingTileset);
+
+          // Move the camera to the new building.
+          // viewer.flyTo(newBuildingTileset);
+          viewer.camera.flyTo({
+            destination: Cesium.Cartesian3.fromDegrees(-111.93301, 33.41539, 600),
+            orientation: {
+              heading: Cesium.Math.toRadians(-20.0),
+              pitch: Cesium.Math.toRadians(-35.0),
+              roll: 0.0,
+            },
+          });
+
+          let mainToolTip = document.getElementsByClassName("cesium-infoBox")[0];
+          let toolTip = document.getElementById("tool-tip");
+          var observer = new MutationObserver(function (event) {
+            if (mainToolTip.classList.value.includes('cesium-infoBox-visible')) {
+              mainToolTip.style.width = 0;
+              mainToolTip.style.height = 0;
+             
+            }
+            else {
+              // toolTip.style.innerHTML = "0";
+              showTooltip(false)
+              toolTip.style.style.visibility = "hidden";
+            }
+          })
+          let aqiElement = document.getElementById("aqi");
+
+          observer.observe(mainToolTip, {
+            attributes: true,
+            attributeFilter: ['class'],
+            childList: false,
+            characterData: false
+          })
+          var latitude = -111.93301
+          var longitude = 33.41539
+          var handler = new Cesium.ScreenSpaceEventHandler(viewer.scene.canvas);
+            handler.setInputAction(function (click) {
+              // Getting the position in window coordinates
+              var earthPosition = viewer.camera.pickEllipsoid(click.position, viewer.scene.globe.ellipsoid);
+
+              // Converting to cartographic coordinates (radians)
+              var cartographic = Cesium.Cartographic.fromCartesian(earthPosition);
+
+              // Converting radians to degrees and logging
+              latitude = Cesium.Math.toDegrees(cartographic.latitude);
+              longitude = Cesium.Math.toDegrees(cartographic.longitude);
+              latitude = latitude.toFixed(4)
+              longitude = longitude.toFixed(4)
+
+            }, Cesium.ScreenSpaceEventType.LEFT_CLICK);
+
+
+          // select object
+          document.body.onkeyup = function (e) {
+            if (e.key == " " ||
+              e.code == "Space" ||
+              e.keyCode == 32
+            ) {
+              
+
+
+              selectedBuilding = document.getElementsByClassName("cesium-infoBox-title")[0].innerHTML;
+              console.log()
+              showTooltip(true)
+              getAQI();
+
+            }
+          }
+
+          function showTooltip(toggle) {
+            if (toggle) {
+              let carbonElement = document.getElementById("carbon");
+              let energyElement = document.getElementById("energy");
+              let ratingElement = document.getElementById("rating");
+              
+              let buildingTitle = document.getElementsByClassName("building-title")[0];
+              carbonElement.innerHTML = data[selectedBuilding].carbon;
+              energyElement.innerHTML = data[selectedBuilding].energy;
+              ratingElement.style.width = `${data[selectedBuilding].rating}%`;
+              console.log(data[selectedBuilding].rating)
+              if (Number(data[selectedBuilding].rating) < 40) {
+                console.log("red")
+                ratingElement.style.backgroundColor = "red"
+              }
+              if ((40 <= data[selectedBuilding].rating) && (data[selectedBuilding].rating < 70)) {
+                console.log("yellow")
+                ratingElement.style.backgroundColor = "orange"
+              }
+              if (70 <= data[selectedBuilding].rating) {
+                console.log("green")
+                ratingElement.style.backgroundColor = "green"
+              }
+
+
+              buildingTitle.innerHTML = String(selectedBuilding);
+              document.getElementsByClassName("vote-count")[0].innerHTML = data[selectedBuilding].votes;
+              
+
+
+
+              buildingsTileset.style = new Cesium.Cesium3DTileStyle({
+                color: {
+                  conditions: [
+                    ["${name} === '" + selectedBuilding + "'", "color('red')"],
+                  ],
+                },
+              });
+
+
+
+
+            } else {
+              setBuildingStyle()
+            }
+          }
+          function setBuildingStyle() {
+            buildingsTileset.style = new Cesium.Cesium3DTileStyle({
+              // Create a style rule to control each building's "show" property.
+              show: {
+                conditions: [
+                  // Any building that has this elementId will have `show = false`.
+                  ['${elementId} === 532245203', false],
+                  // If a building does not have one of these elementIds, set `show = true`.
+                  [true, true]
+                ]
+              },
+              // Set the default color style for this particular 3D Tileset.
+              // For any building that has a `cesium#color` property, use that color, otherwise make it white.
+              // color: "Boolean(${feature['cesium#color']}) ? color(${feature['cesium#color']}) : color('#ffffff')"
+              color: {
+                conditions: [
+                  ["${name} === 'Health Service Building'", "color('yellow')"],
+                  ["${name} === 'West 6 Apartments'", "color('yellow')"],
+                  ["${name} === 'Novus Parking Structure'", "color('yellow')"],
+                  ["${name} === 'Verde Dickey Dome'", "color('yellow')"],
+                  ["${name} === 'University Center C'", "color('yellow')"],
+                  ["${name} === 'University Center A'", "color('yellow')"],
+                  ["true", "color('blue')"],
+                ],
+              },
+            });
+          }
+        
+
+          const API_KEY = "AIzaSyDIgf3QsO0MoyZwyN7q5KCRJz5Qj1Hv6bw";
+          function getAQI(){
+            
+            let response = fetch('https://airquality.googleapis.com/v1/currentConditions:lookup?key=' + API_KEY, {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json'
+              },
+              body: JSON.stringify({
+                "universalAqi": true,
+                "location": {
+                  "latitude": latitude,
+                  "longitude": longitude
+                },
+                "extraComputations": [
+                  "HEALTH_RECOMMENDATIONS",
+                  "DOMINANT_POLLUTANT_CONCENTRATION",
+                  "POLLUTANT_CONCENTRATION",
+                  "LOCAL_AQI",
+                  "POLLUTANT_ADDITIONAL_INFO"
+                ],
+                "languageCode": "en"
+              })
+            })
+              .then(response => response.json())
+              .then(data => {
+                console.log(data);
+                let aqi = data["indexes"][0]["aqi"]
+                console.log("AQI: ", aqi)
+                aqiElement.innerHTML = String(aqi);
+
+                for (let i = 0; i < data["pollutants"].length; i++) {
+                  let pollutant = data["pollutants"][i]
+                  console.log(pollutant["displayName"], ": ", pollutant["fullName"])
+                }
+              })
+              .catch(error => {
+                console.error('Error:', error);
+              });
+
+          }
+          
+
+    </script>
+    <script>
+
+      // This function toggles the sidebar open and closed.
+      function toggleSidebar() {
+         var sidebar = document.getElementById("sidebar");
+         sidebar.classList.toggle('open');
+       }
+       
+       // This function closes the sidebar if it's open.
+       // It is called when one of the links is clicked.
+       function closeSidebar() {
+         var sidebar = document.getElementById("sidebar");
+         sidebar.classList.remove('open');
+       }
+       
+       // Event listener for sidebar links
+       document.querySelectorAll('.sidebar a').forEach(link => {
+         link.addEventListener('click', closeSidebar);
+       });
+       
+       // Event listener for clicks outside of the sidebar
+       window.addEventListener('click', function(e) {
+         var sidebar = document.getElementById("sidebar");
+         if (!sidebar.contains(e.target) && sidebar.classList.contains('open')) {
+           // Only close if click is outside sidebar
+           closeSidebar();
+         }
+       });
+       
+       // Prevent events from inside the sidebar from propagating
+       document.querySelector('.sidebar').addEventListener('click', function(e) {
+         e.stopPropagation();
+       });
+       
+       // Prevent events from the hamburger menu from propagating
+       document.querySelector('.hamburger-menu').addEventListener('click', function(e) {
+         e.stopPropagation();
+       });
+
+
+       
+      </script>
+  </body>
+</html>

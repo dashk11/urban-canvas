@@ -1,0 +1,80 @@
+*{
+    font-family: Arial, sans-serif;
+}
+.card {
+    background: white;
+    border-radius: 8px;
+    padding: 20px;
+    width: 350px; /* Adjust width as needed */
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    position: fixed;
+    top: 0;
+    transition: all 1s;
+    margin-left: 10px;
+    margin-top: 93px;
+}
+#cardImage{
+  width: 200px;
+  height: 200px;
+  border-radius: 30px;
+  margin-left: auto;
+  margin-right: auto;
+  border: 1px solid black;
+}
+
+.card h2 {
+    font-size: 18px;
+    color: #333;
+    margin-bottom: 16px;
+}
+.card .stat {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    font-size: 14px;
+}
+.card .stat-icon {
+    font-size: 20px;
+    color: #555;
+}
+.card .chart-container {
+    margin-top: 20px;
+}
+.bar-chart {
+    height: 80px; /* Adjust height as needed */
+    background: #EAEAEA;
+    border-radius: 8px;
+    padding: 10px;
+}
+.bar-chart div {
+    height: 20px;
+    background: #007BFF;
+    margin-bottom: 4px;
+    border-radius: 4px;
+}
+.chart-labels {
+    display: flex;
+    justify-content: space-between;
+    font-size: 12px;
+    padding: 0 10px;
+}
+.savings{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+.savings-title{
+    font-size: 2rem;
+    color: green;
+    font-weight: bold;
+}
+.savings-title-2{
+    font-size: .75rem;
+}
+.sun-emo{
+    margin-top: -5px;
+    margin-right: 10px;
+    font-size: 2rem;
+}

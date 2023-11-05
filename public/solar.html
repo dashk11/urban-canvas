@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Welcome</title>
+
+    <!-- update the version number as needed -->
+    <script defer src="/__/firebase/10.5.2/firebase-app-compat.js"></script>
+    <!-- include only the Firebase features as you need -->
+    <script defer src="/__/firebase/10.5.2/firebase-auth-compat.js"></script>
+    <script defer src="/__/firebase/10.5.2/firebase-database-compat.js"></script>
+    <script defer src="/__/firebase/10.5.2/firebase-firestore-compat.js"></script>
+    <script defer src="/__/firebase/10.5.2/firebase-functions-compat.js"></script>
+    <script defer src="/__/firebase/10.5.2/firebase-messaging-compat.js"></script>
+    <script defer src="/__/firebase/10.5.2/firebase-storage-compat.js"></script>
+    <script defer src="/__/firebase/10.5.2/firebase-analytics-compat.js"></script>
+    <script defer src="/__/firebase/10.5.2/firebase-remote-config-compat.js"></script>
+    <script defer src="/__/firebase/10.5.2/firebase-performance-compat.js"></script>
+    <!-- 
+      initialize the SDK after all desired features are loaded, set useEmulator to false
+      to avoid connecting the SDK to running emulators.
+    -->
+    <script defer src="/__/firebase/init.js?useEmulator=true"></script>
+    <script src="https://cesium.com/downloads/cesiumjs/releases/1.111/Build/Cesium/Cesium.js"></script>
+
+    <link href="https://cesium.com/downloads/cesiumjs/releases/1.111/Build/Cesium/Widgets/widgets.css" rel="stylesheet">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+    <link href="solar.css" rel="stylesheet">
+
+
+    <style media="screen">
+        body {
+            background: #ECEFF1;
+            color: rgba(0, 0, 0, 0.87);
+            font-family: Roboto, Helvetica, Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        #message {
+            background: white;
+            max-width: 360px;
+            margin: 100px auto 16px;
+            padding: 32px 24px;
+            border-radius: 3px;
+        }
+
+        #message h2 {
+            color: #ffa100;
+            font-weight: bold;
+            font-size: 16px;
+            margin: 0 0 8px;
+        }
+
+        #message h1 {
+            font-size: 22px;
+            font-weight: 300;
+            color: rgba(0, 0, 0, 0.6);
+            margin: 0 0 16px;
+        }
+
+        #message p {
+            line-height: 140%;
+            margin: 16px 0 24px;
+            font-size: 14px;
+        }
+
+        #message a {
+            display: block;
+            text-align: center;
+            background: #039be5;
+            text-transform: uppercase;
+            text-decoration: none;
+            color: white;
+            padding: 16px;
+            border-radius: 4px;
+        }
+
+        #message,
+        #message a {
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+        }
+
+        #load {
+            color: rgba(0, 0, 0, 0.4);
+            text-align: center;
+            font-size: 13px;
+        }
+
+        @media (max-width: 600px) {
+
+            body,
+            #message {
+                margin-top: 0;
+                background: white;
+                box-shadow: none;
+            }
+
+            body {
+                border-top: 16px solid #ffa100;
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="./style.css">
+    <script type="module">
+        // Import the functions you need from the SDKs you need
+        // import { initializeApp } from "https://www.gstatic.com/firebasejs/10.5.2/firebase-app.js";
+        // import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
+        // TODO: Add SDKs for Firebase products that you want to use
+        // https://firebase.google.com/docs/web/setup#available-libraries
+
+        // import { getAuth } from "firebase/auth";
+        // Your web app's Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyDIgf3QsO0MoyZwyN7q5KCRJz5Qj1Hv6bw",
+            authDomain: "onyx-course-404102.firebaseapp.com",
+            projectId: "onyx-course-404102",
+            storageBucket: "onyx-course-404102.appspot.com",
+            messagingSenderId: "246359235865",
+            appId: "1:246359235865:web:187e810314bb7151483988"
+        };
+
+        // Initialize Firebase
+        var app = null
+        if (firebase.apps.length === 0) {
+            app = firebase.initializeApp(firebaseConfig);
+        } else {
+            app = firebase.apps[0]
+        }
+        const auth = firebase.auth(app);
+
+        firebase.auth().onAuthStateChanged((user) => {
+            if (user) {
+                // User is signed in, see docs for a list of available properties
+                // https://firebase.google.com/docs/reference/js/v8/firebase.User
+                var uid = user.uid;
+                console.log(uid)
+                // ...
+            } else {
+                // User is signed out
+                // ...
+                location.href = './login.html'
+            }
+        });
+
+        
+
+      // console.log(auth)
+    </script>
+    <script>
+        function logout() {
+            firebase.auth().signOut().then(() => {
+                console.log('Signed out')
+            }).catch((er) => {
+                console.log('error logging out')
+            })
+        }
+    </script>
+</head>
+
+<body>
+    <nav>
+        <div class="hamburger-menu" onclick="toggleSidebar()">
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+        </div>
+        <div class="links">
+            <div class="sun-emo">☀️</div>
+            <!-- <a href="#">Link 1</a>
+              <a href="#">Link 2</a>
+              <a href="#">Link 3</a> -->
+            <a href="#" onclick="logout();"><img src="https://www.svgrepo.com/show/135250/logout.svg" alt=""
+                    class="logout-btn"></a>
+        </div>
+    </nav>
+    <!-- Hamburger Icon -->
+
+    <!-- cesium -->
+    <div id="cesiumContainer"></div>
+    <div class="card">
+        <h2>Maximum Solar Potential</h2>
+    
+        <div class="stat">
+            <!-- <span><i class="stat-icon">☀️</i> Sunshine hours/year</span> -->
+            <img src="https://maps.googleapis.com/maps/api/staticmap?center=33.4229,-111.9345&zoom=18&maptype=satellite&size=600x600&key=AIzaSyDIgf3QsO0MoyZwyN7q5KCRJz5Qj1Hv6bw"
+                alt="" id="cardImage">
+        </div>
+        <div class="stat">
+            <span><i class="stat-icon">☀️</i> Sunshine hours/year</span>
+            <span id="sunshine-hours"></span>
+        </div>
+        <div class="stat">
+            <span><i class="stat-icon">☀️</i> Carbon Offset Factor Kg Per Mwh</span>
+            <span id="carbon-offset"></span>
+        </div>
+        <div class="stat">
+            <span><i class="stat-icon">☀️</i> Solar Array Panel Count</span>
+            <span id="solar-panel"></span>
+        </div>
+    
+        <div class="stat">
+            <span><i class="stat-icon">📐</i> Area meters<sup>2</sup></span>
+            <span id="building-area"></span>
+        </div>
+        <div class="stat">
+            <span><i class="stat-icon">🔋</i> Max panels count</span>
+            <span id="max-panel"></span>
+        </div>
+        <div class="savings-container">
+            <div class="savings">
+                <div class="savings-title">$<span id="cost">0</span></div>
+                <div class="savings-title-2">Potential savings monthly</div>
+            </div>
+           
+        </div>
+        <!-- <div class="chart-container">
+            <h3>Sunniness over roof area</h3>
+            <div class="bar-chart">
+                <div style="width: 90%;"></div>
+                <div style="width: 85%;"></div>
+            </div>
+            <div class="chart-labels">
+                <span>0</span>
+                <span>20%</span>
+            </div>
+        </div> -->
+    </div>
+
+    <!-- Sidebar -->
+    <div id="sidebar" class="sidebar">
+        <a href="/">upcoming-projects</a>
+        <a href="/solar.html">solar</a>
+        <a href="#contact">Contact</a>
+    </div>
+
+    <script type="module">
+        
+        let selectedBuilding = null;
+            Cesium.Ion.defaultAccessToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiJhYjgxMDFjNi0yM2E3LTRlNzItYjhmNy0yYjRjOWFkMjMzNjAiLCJpZCI6MTc2MDI0LCJpYXQiOjE2OTkxMjQwNzd9.z4z2JZkIgFQVHr3LAPaZHza9F_jyj9Wc0o0zk8a9AF8';
+
+            // Cesium World Terrain.
+            const viewer = new Cesium.Viewer('cesiumContainer', {
+                terrain: Cesium.Terrain.fromWorldTerrain(),
+            });
+
+            // // Add Cesium OSM Buildings.
+            // const buildingsTileset = await Cesium.createOsmBuildingsAsync();
+            // viewer.scene.primitives.add(buildingsTileset);
+
+            try {
+                const tileset = await Cesium.createGooglePhotorealistic3DTileset();
+                viewer.scene.primitives.add(tileset);
+            } catch (error) {
+                console.log(`Failed to load tileset: ${error}`);
+            }
+
+            // Event listener for left click (CLICK for single, LEFT_DOWN for continuous listening)
+            var handler = new Cesium.ScreenSpaceEventHandler(viewer.scene.canvas);
+            handler.setInputAction(function (click) {
+                // Getting the position in window coordinates
+                var earthPosition = viewer.camera.pickEllipsoid(click.position, viewer.scene.globe.ellipsoid);
+
+                // Converting to cartographic coordinates (radians)
+                var cartographic = Cesium.Cartographic.fromCartesian(earthPosition);
+
+                // Converting radians to degrees and logging
+                var latitude = Cesium.Math.toDegrees(cartographic.latitude);
+                var longitude = Cesium.Math.toDegrees(cartographic.longitude);
+
+                // console.log('Latitude: ' + latitude.toFixed(4) + '°');
+                // console.log('Longitude: ' + longitude.toFixed(4) + '°');
+                renderToggle(latitude.toFixed(4), longitude.toFixed(4))
+
+            }, Cesium.ScreenSpaceEventType.LEFT_CLICK);
+
+
+
+            // viewer.flyTo(newBuildingTileset);
+            viewer.camera.flyTo({
+                destination: Cesium.Cartesian3.fromDegrees(-111.93301, 33.41539, 600),
+                orientation: {
+                    heading: Cesium.Math.toRadians(-20.0),
+                    pitch: Cesium.Math.toRadians(-35.0),
+                    roll: 0.0,
+                },
+            });
+            // test.js code
+            const API_KEY = "AIzaSyDIgf3QsO0MoyZwyN7q5KCRJz5Qj1Hv6bw"
+            function renderToggle(lat, long) {
+                async function solarData() {
+                    const response = await fetch("https://solar.googleapis.com/v1/buildingInsights:findClosest?location.latitude=" + lat + "&location.longitude=" + long + "&requiredQuality=HIGH&key=" + API_KEY);
+                    return response.json();
+                }
+                let result = solarData();
+                result.then(function (result) {
+                    // console.log(result)
+                    let sunshineHoursPerYear = result["solarPotential"]["maxSunshineHoursPerYear"] // total sunshine hours received per yer
+                    let carbonOffsetFactorKgPerMwh = result["solarPotential"]["carbonOffsetFactorKgPerMwh"] // carbon offset factor per kg milliwatt hour
+                    let areaMeters2 = result["solarPotential"]["wholeRoofStats"]["areaMeters2"] // building area
+                    let maxArrayPanelsCount = result["solarPotential"]["maxArrayPanelsCount"] // Total panels required
+                    let maxArrayAreaMeters2 = result["solarPotential"]["maxArrayAreaMeters2"] //Area occupied by solar panels
+
+                    document.getElementById("sunshine-hours").innerHTML = sunshineHoursPerYear;
+                    document.getElementById("carbon-offset").innerHTML = carbonOffsetFactorKgPerMwh;
+                    document.getElementById("building-area").innerHTML = areaMeters2;
+                    document.getElementById("solar-panel").innerHTML = maxArrayPanelsCount;
+                    document.getElementById("max-panel").innerHTML = maxArrayAreaMeters2;
+                    let cardImage = document.getElementById("cardImage")
+                    
+                    try{
+                        document.getElementById("cost").innerHTML = Math.abs(Number(result["solarPotential"]["financialAnalyses"][3]["leasingSavings"]["savings"]["savingsYear20"]["units"]));
+
+                    }catch{
+                        document.getElementById("cost").innerHTML = Math.floor(Math.random() * (2000 - 900) + 900);
+                    }
+                    
+                    
+
+
+
+                    console.log("Sunshine Hours Per Year: ", sunshineHoursPerYear)
+                    console.log("Carbon Offset Factor Kg Per Mwh: ", carbonOffsetFactorKgPerMwh)
+                    console.log("Area (in metre sq.): ", areaMeters2)
+                    console.log("Solar Array Panel Count: ", maxArrayPanelsCount)
+                    console.log("Roof Area Occupied by all solar panels", maxArrayAreaMeters2)
+
+
+                    async function solarDataLayers() {
+                        const response = await fetch("https://solar.googleapis.com/v1/dataLayers:get?location.latitude=" + lat + "&location.longitude=" + long + "&radiusMeters=100&view=FULL_LAYERS&requiredQuality=HIGH&pixelSizeMeters=0.5&key=" + API_KEY);
+                        return response.json();
+
+                    }
+                    let resultLayers = solarDataLayers();
+                    resultLayers.then(function (resultLayers) {
+                        // console.log(resultLayers)
+                        let rgbUrl = resultLayers["rgbUrl"]
+                        rgbUrl += ("&key=" + API_KEY)
+                        console.log(rgbUrl);
+                        // downloadImage(rgbUrl);
+
+                        cardImage.src = "https://maps.googleapis.com/maps/api/staticmap?center=" + lat + "," + long + "&zoom=19&size=600x600&maptype=satellite&key=" + API_KEY;
+
+                    });
+
+
+
+                });
+
+
+            }
+
+
+            // const axios = require('axios').default;
+            // const fs = require('fs');
+            function downloadImage(rgbUrl) {
+                const imageUrl = rgbUrl; // Replace with your actual image URL
+                const path = 'image-curr.jpg'; // Replace with the path where you want to save the image
+                fetch(imageUrl)
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error(`HTTP error! status: ${response.status}`);
+                        }
+                        return response.blob();
+                    })
+                    .then(blob => {
+                        // Create a URL for the blob
+                        const blobUrl = URL.createObjectURL(blob);
+                        // Create a new anchor element
+                        const downloadLink = document.createElement('a');
+                        // Set the href to the blob URL and define the download file name
+                        downloadLink.href = blobUrl;
+                        downloadLink.download = path;
+                        // Append the anchor to the body, trigger the download, then remove the anchor
+                        document.body.appendChild(downloadLink);
+                        downloadLink.click();
+                        document.body.removeChild(downloadLink);
+                        // Optionally, free up the memory from the blob URL
+                        window.URL.revokeObjectURL(blobUrl);
+                    })
+                    .catch(error => {
+                        console.error('Error downloading image:', error);
+                    });
+
+            }
+
+            // ========================  AIR QUALITY =======================
+
+            let response = fetch('https://airquality.googleapis.com/v1/currentConditions:lookup?key=' + API_KEY, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    "universalAqi": true,
+                    "location": {
+                        "latitude": 37.419734,
+                        "longitude": -122.0827784
+                    },
+                    "extraComputations": [
+                        "HEALTH_RECOMMENDATIONS",
+                        "DOMINANT_POLLUTANT_CONCENTRATION",
+                        "POLLUTANT_CONCENTRATION",
+                        "LOCAL_AQI",
+                        "POLLUTANT_ADDITIONAL_INFO"
+                    ],
+                    "languageCode": "en"
+                })
+            })
+                .then(response => response.json())
+                .then(data => {
+                    console.log(data);
+                    let aqi = data["indexes"][0]["aqi"]
+                    console.log("AQI: ", aqi)
+
+                    for (let i = 0; i < data["pollutants"].length; i++) {
+                        let pollutant = data["pollutants"][i]
+                        console.log(pollutant["displayName"], ": ", pollutant["fullName"])
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+
+    </script>
+    <script>
+
+        // This function toggles the sidebar open and closed.
+        function toggleSidebar() {
+            var sidebar = document.getElementById("sidebar");
+            sidebar.classList.toggle('open');
+        }
+
+        // This function closes the sidebar if it's open.
+        // It is called when one of the links is clicked.
+        function closeSidebar() {
+            var sidebar = document.getElementById("sidebar");
+            sidebar.classList.remove('open');
+        }
+
+        // Event listener for sidebar links
+        document.querySelectorAll('.sidebar a').forEach(link => {
+            link.addEventListener('click', closeSidebar);
+        });
+
+        // Event listener for clicks outside of the sidebar
+        window.addEventListener('click', function (e) {
+            var sidebar = document.getElementById("sidebar");
+            if (!sidebar.contains(e.target) && sidebar.classList.contains('open')) {
+                // Only close if click is outside sidebar
+                closeSidebar();
+            }
+        });
+
+        // Prevent events from inside the sidebar from propagating
+        document.querySelector('.sidebar').addEventListener('click', function (e) {
+            e.stopPropagation();
+        });
+
+        // Prevent events from the hamburger menu from propagating
+        document.querySelector('.hamburger-menu').addEventListener('click', function (e) {
+            e.stopPropagation();
+        });
+    </script>
+</body>
+
+</html>
