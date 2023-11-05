@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Guidelines</title>
+
+    <!-- update the version number as needed -->
+    <script defer src="/__/firebase/10.5.2/firebase-app-compat.js"></script>
+    <!-- include only the Firebase features as you need -->
+    <script defer src="/__/firebase/10.5.2/firebase-auth-compat.js"></script>
+    <script defer src="/__/firebase/10.5.2/firebase-database-compat.js"></script>
+    <script defer src="/__/firebase/10.5.2/firebase-firestore-compat.js"></script>
+    <script defer src="/__/firebase/10.5.2/firebase-functions-compat.js"></script>
+    <script defer src="/__/firebase/10.5.2/firebase-messaging-compat.js"></script>
+    <script defer src="/__/firebase/10.5.2/firebase-storage-compat.js"></script>
+    <script defer src="/__/firebase/10.5.2/firebase-analytics-compat.js"></script>
+    <script defer src="/__/firebase/10.5.2/firebase-remote-config-compat.js"></script>
+    <script defer src="/__/firebase/10.5.2/firebase-performance-compat.js"></script>
+    <!-- 
+      initialize the SDK after all desired features are loaded, set useEmulator to false
+      to avoid connecting the SDK to running emulators.
+    -->
+    <script defer src="/__/firebase/init.js?useEmulator=true"></script>
+    <script src="https://cesium.com/downloads/cesiumjs/releases/1.111/Build/Cesium/Cesium.js"></script>
+
+    <link href="https://cesium.com/downloads/cesiumjs/releases/1.111/Build/Cesium/Widgets/widgets.css" rel="stylesheet">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+    <link href="solar.css" rel="stylesheet">
+
+
+    <style media="screen">
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f9f9f9;
+            margin: 0;
+            padding: 0;
+            height: 110vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 20px;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .project-data {
+            margin-bottom: 20px;
+            padding: 15px;
+            background-color: #f2f2f2;
+            border-left: 5px solid #0078d7;
+        }
+
+        h1,
+        h2 {
+            color: #333;
+        }
+
+        h1 {
+            text-align: center;
+            margin-top: 0;
+        }
+
+        h2 {
+            border-bottom: 2px solid #0078d7;
+            padding-bottom: 5px;
+        }
+
+        body {
+            background: #ECEFF1;
+            color: rgba(0, 0, 0, 0.87);
+            font-family: Roboto, Helvetica, Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        #message {
+            background: white;
+            max-width: 360px;
+            margin: 100px auto 16px;
+            padding: 32px 24px;
+            border-radius: 3px;
+        }
+
+        #message h2 {
+            color: #ffa100;
+            font-weight: bold;
+            font-size: 16px;
+            margin: 0 0 8px;
+        }
+
+        #message h1 {
+            font-size: 22px;
+            font-weight: 300;
+            color: rgba(0, 0, 0, 0.6);
+            margin: 0 0 16px;
+        }
+
+        #message p {
+            line-height: 140%;
+            margin: 16px 0 24px;
+            font-size: 14px;
+        }
+
+        #message a {
+            display: block;
+            text-align: center;
+            background: #039be5;
+            text-transform: uppercase;
+            text-decoration: none;
+            color: white;
+            padding: 16px;
+            border-radius: 4px;
+        }
+
+        #message,
+        #message a {
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+        }
+
+        #load {
+            color: rgba(0, 0, 0, 0.4);
+            text-align: center;
+            font-size: 13px;
+        }
+
+        @media (max-width: 600px) {
+
+            body,
+            #message {
+                margin-top: 0;
+                background: white;
+                box-shadow: none;
+            }
+
+            body {
+                border-top: 16px solid #ffa100;
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="./style.css">
+    <script type="module">
+        // Import the functions you need from the SDKs you need
+        // import { initializeApp } from "https://www.gstatic.com/firebasejs/10.5.2/firebase-app.js";
+        // import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
+        // TODO: Add SDKs for Firebase products that you want to use
+        // https://firebase.google.com/docs/web/setup#available-libraries
+
+        // import { getAuth } from "firebase/auth";
+        // Your web app's Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyDIgf3QsO0MoyZwyN7q5KCRJz5Qj1Hv6bw",
+            authDomain: "onyx-course-404102.firebaseapp.com",
+            projectId: "onyx-course-404102",
+            storageBucket: "onyx-course-404102.appspot.com",
+            messagingSenderId: "246359235865",
+            appId: "1:246359235865:web:187e810314bb7151483988"
+        };
+
+        // Initialize Firebase
+        var app = null
+        if (firebase.apps.length === 0) {
+            app = firebase.initializeApp(firebaseConfig);
+        } else {
+            app = firebase.apps[0]
+        }
+        const auth = firebase.auth(app);
+
+        firebase.auth().onAuthStateChanged((user) => {
+            if (user) {
+                // User is signed in, see docs for a list of available properties
+                // https://firebase.google.com/docs/reference/js/v8/firebase.User
+                var uid = user.uid;
+                console.log(uid)
+                // ...
+            } else {
+                // User is signed out
+                // ...
+                location.href = './login.html'
+            }
+        });
+
+
+
+      // console.log(auth)
+    </script>
+    <script>
+        function logout() {
+            firebase.auth().signOut().then(() => {
+                console.log('Signed out')
+            }).catch((er) => {
+                console.log('error logging out')
+            })
+        }
+    </script>
+</head>
+
+<body>
+    <nav>
+        <div class="hamburger-menu" onclick="toggleSidebar()">
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+        </div>
+        <div class="links">
+            <div class="sun-emo">☀️</div>
+            <!-- <a href="#">Link 1</a>
+                  <a href="#">Link 2</a>
+                  <a href="#">Link 3</a> -->
+            <a href="#" onclick="logout();"><img src="https://www.svgrepo.com/show/135250/logout.svg" alt=""
+                    class="logout-btn"></a>
+        </div>
+    </nav>
+    <!-- Hamburger Icon -->
+
+    <div class="container">
+        <h1>Upcoming Construction Project: Main Street Development</h1>
+
+        <div class="project-data">
+            <h2>Project Description</h2>
+            <p>The Main Street development project includes the construction of a new shopping center, including retail
+                shops, a grocery store, and a parking garage.</p>
+        </div>
+
+        <div class="project-data">
+            <h2>Environmental Impact</h2>
+            <p>An environmental impact assessment has been conducted and is available for review. Measures will be taken
+                to
+                ensure minimal impact on local wildlife and vegetation.</p>
+        </div>
+
+        <div class="project-data">
+            <h2>Traffic Impact</h2>
+            <p>Traffic flow simulations suggest minor disruptions during peak construction hours. A traffic management
+                plan
+                has been prepared to address potential issues.</p>
+        </div>
+
+        <div class="project-data">
+            <h2>Noise Levels</h2>
+            <p>Noise levels are projected to be within city regulations. Construction will occur between 8 AM and 6 PM
+                to
+                minimize disturbance.</p>
+        </div>
+
+        <div class="project-data">
+            <h2>Air Quality Impact</h2>
+            <p>Dust suppression measures will be employed to maintain air quality. Regular monitoring will ensure
+                adherence
+                to air quality standards.</p>
+        </div>
+
+        <div class="project-data">
+            <h2>Safety Measures</h2>
+            <p>Safety for both workers and the public is our priority. The construction site will be secured, and
+                appropriate signage will be displayed around the perimeter.</p>
+        </div>
+
+        <div class="project-data">
+            <h2>Duration of Construction</h2>
+            <p>The construction is scheduled to start on June 1, 2023, and the estimated completion date is December 31,
+                2024.</p>
+        </div>
+
+        <div class="project-data">
+            <h2>Community Benefits</h2>
+            <p>The project will include the addition of a new public park and improvements to local road infrastructure.
+            </p>
+        </div>
+
+        <div class="project-data">
+            <h2>Contact Information</h2>
+            <p>Questions or concerns can be directed to the Main Street Development Office at (123) 456-7890 or via
+                email at
+                contact@mainstreetdev.com.</p>
+        </div>
+
+    </div>
+
+
+
+
+
+
+
+
+
+    <!-- Sidebar -->
+    <div id="sidebar" class="sidebar">
+        <a href="/">Eco Rating</a>
+        <a href="/solar.html">Solar Potential </a>
+        <a href="/guidelines.html">Guidelines</a>
+    </div>
+    <script>
+
+        // This function toggles the sidebar open and closed.
+        function toggleSidebar() {
+            var sidebar = document.getElementById("sidebar");
+            sidebar.classList.toggle('open');
+        }
+
+        // This function closes the sidebar if it's open.
+        // It is called when one of the links is clicked.
+        function closeSidebar() {
+            var sidebar = document.getElementById("sidebar");
+            sidebar.classList.remove('open');
+        }
+
+        // Event listener for sidebar links
+        document.querySelectorAll('.sidebar a').forEach(link => {
+            link.addEventListener('click', closeSidebar);
+        });
+
+        // Event listener for clicks outside of the sidebar
+        window.addEventListener('click', function (e) {
+            var sidebar = document.getElementById("sidebar");
+            if (!sidebar.contains(e.target) && sidebar.classList.contains('open')) {
+                // Only close if click is outside sidebar
+                closeSidebar();
+            }
+        });
+
+        // Prevent events from inside the sidebar from propagating
+        document.querySelector('.sidebar').addEventListener('click', function (e) {
+            e.stopPropagation();
+        });
+
+        // Prevent events from the hamburger menu from propagating
+        document.querySelector('.hamburger-menu').addEventListener('click', function (e) {
+            e.stopPropagation();
+        });
+    </script>
+</body>
+
+</html>

@@ -70,7 +70,7 @@
             // https://firebase.google.com/docs/reference/js/v8/firebase.User
             var uid = user.uid;
             console.log(uid)
-            location.href='/index.html'
+            location.href = '/index.html'
             // ...
          } else {
             // User is signed out
@@ -110,30 +110,28 @@
             });
       }
    </script>
-   <script
-   src="https://code.jquery.com/jquery-3.3.1.js"
-   integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
-   crossorigin="anonymous"></script> 
-   <script> 
-      $(function(){
-        $("#header").load("top-bar.html"); 
+   <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
+      crossorigin="anonymous"></script>
+   <script>
+      $(function () {
+         $("#header").load("top-bar.html");
       });
-      </script> 
+   </script>
    <script type="module" src="./login.js"></script>
 </head>
 
 <body>
    <nav>
       <div class="logo">
-        UC
+         UC
       </div>
       <div class="links">
-        <!-- <a href="#">Link 1</a>
+         <!-- <a href="#">Link 1</a>
         <a href="#">Link 2</a>
         <a href="#">Link 3</a>
         <a href="#">Link 4</a> -->
       </div>
-    </nav>
+   </nav>
    <!-- partial:index.partial.html -->
    <div class="materialContainer">
       <div class="box">
