@@ -207,7 +207,7 @@
 .button {
   margin-top: 20px;
   margin: 40px 0;
-  overflow: hidden;
+  /* overflow: hidden; */
   z-index: 2;
 }
 .button.login {
@@ -385,11 +385,11 @@ body {
   background-size: cover;
   background-repeat: no-repeat;
   min-height: 100vh;
-  overflow: hidden;
+  /* overflow: hidden; */
 }
 
 html {
-  overflow: hidden;
+  /* overflow: hidden; */
 }
 
 .materialContainer {

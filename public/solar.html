@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Solar Potential</title>
+    <title>Power Saving</title>
 
     <!-- update the version number as needed -->
     <script defer src="/__/firebase/10.5.2/firebase-app-compat.js"></script>
@@ -31,6 +31,25 @@
 
 
     <style media="screen">
+        .support {
+            margin-top: 5px;
+        }
+
+        .heart {
+            font-size: 1.2rem;
+        }
+
+        .support-btn {
+            cursor: pointer;
+            width: 100px;
+            height: 50px;
+            border-radius: 10px;
+            background-color: rgb(255, 130, 151);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
         body {
             background: #ECEFF1;
             color: rgba(0, 0, 0, 0.87);
@@ -181,7 +200,7 @@
     <!-- cesium -->
     <div id="cesiumContainer"></div>
     <div class="card">
-        <h2>Maximum Solar Potential</h2>
+        <h2>Maximum Power Saving</h2>
 
         <div class="stat">
             <!-- <span><i class="stat-icon">☀️</i> Sunshine hours/year</span> -->
@@ -212,7 +231,14 @@
         <div class="savings-container">
             <div class="savings">
                 <div class="savings-title">$<span id="cost">0</span></div>
-                <div class="savings-title-2">Potential savings monthly</div>
+                <div class="savings-title-2">Potential savings</div>
+            </div>
+        </div>
+        <div class="stat support">
+            <div class="support-btn">Support <span class="heart"> ❤️</span> </div>
+            <div class="progress-bar">
+                <div class="progress" id="rating">
+                </div>
             </div>
 
         </div>
@@ -232,7 +258,7 @@
     <!-- Sidebar -->
     <div id="sidebar" class="sidebar">
         <a href="/">Eco Rating</a>
-        <a href="/solar.html">Solar Potential </a>
+        <a href="/solar.html">Power Saving </a>
         <a href="/guidelines.html">Guidelines</a>
     </div>
 

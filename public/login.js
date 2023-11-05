@@ -84,7 +84,7 @@ $(function () {
         if ($(this).hasClass('material-button')) {
             setTimeout(function () {
                 $(".overbox").css({
-                    "overflow": "hidden"
+                    // "overflow": "hidden"
                 })
                 $(".box").addClass("back");
             }, 200)
