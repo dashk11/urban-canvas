@@ -133,13 +133,13 @@
         // import { getAuth } from "firebase/auth";
         // Your web app's Firebase configuration
         const firebaseConfig = {
-            apiKey: "AIzaSyDIgf3QsO0MoyZwyN7q5KCRJz5Qj1Hv6bw",
-            authDomain: "onyx-course-404102.firebaseapp.com",
-            projectId: "onyx-course-404102",
-            storageBucket: "onyx-course-404102.appspot.com",
-            messagingSenderId: "246359235865",
-            appId: "1:246359235865:web:187e810314bb7151483988"
-        };
+                apiKey: "",
+                authDomain: "",
+                projectId: "",
+                storageBucket: "",
+                messagingSenderId: "",
+                appId: ""
+            };
 
         // Initialize Firebase
         var app = null
@@ -204,7 +204,7 @@
 
         <div class="stat">
             <!-- <span><i class="stat-icon">☀️</i> Sunshine hours/year</span> -->
-            <img src="https://maps.googleapis.com/maps/api/staticmap?center=33.4229,-111.9345&zoom=18&maptype=satellite&size=600x600&key=AIzaSyDIgf3QsO0MoyZwyN7q5KCRJz5Qj1Hv6bw"
+            <img src="https://maps.googleapis.com/maps/api/staticmap?center=33.4229,-111.9345&zoom=18&maptype=satellite&size=600x600&key=API_KEY"
                 alt="" id="cardImage">
         </div>
         <div class="stat">
@@ -314,7 +314,7 @@
             },
         });
         // test.js code
-        const API_KEY = "AIzaSyDIgf3QsO0MoyZwyN7q5KCRJz5Qj1Hv6bw"
+        const API_KEY = "API_KEY"
         function renderToggle(lat, long) {
             async function solarData() {
                 const response = await fetch("https://solar.googleapis.com/v1/buildingInsights:findClosest?location.latitude=" + lat + "&location.longitude=" + long + "&requiredQuality=HIGH&key=" + API_KEY);

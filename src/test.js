@@ -2,7 +2,7 @@ const axios = require('axios').default;
 const fs = require('fs');
 
 console.log('ABCD !!!!!')
-API_KEY = "AIzaSyDIgf3QsO0MoyZwyN7q5KCRJz5Qj1Hv6bw"
+API_KEY = "API_KEY"
 
 function downloadImage(rgbUrl) {
     const imageUrl = rgbUrl; // Replace with your actual image URL
